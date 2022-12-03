@@ -25,7 +25,8 @@ RUN apt-get update && apt-get install -y ffmpeg libsm6 libxext6 git ninja-build 
 
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-RUN pip install --no-cache-dir --upgrade pip setuptools==59.5.0 wheel setuptools tensorboardx nuscenes-devkit mmcv-full mmdet mmsegmentation torch-scatter efficientnet_pytorch
+RUN pip install --no-cache-dir --upgrade pip setuptools==59.5.0 wheel setuptools tensorboardx nuscenes-devkit openmim mmdet mmsegmentation torch-scatter efficientnet_pytorch
+RUN min install mmcv-full==1.5.0
 
 RUN git clone https://github.com/open-mmlab/mmdetection3d.git
 WORKDIR mmdetection3d
