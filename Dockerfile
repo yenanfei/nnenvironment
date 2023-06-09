@@ -33,10 +33,12 @@ COPY libstdc++.so.6.0.28  /lib/x86_64-linux-gnu/libstdc++.so.6.0.28
 COPY onnxruntime_gpu-1.13.1-cp37-cp37m-linux_x86_64.whl .
 COPY install.sh .
 COPY libm-2.31.so /lib/x86_64-linux-gnu/libm.so.6
+RUN pip install --no-cache-dir --upgrade pip pycuda scipy mmcv-full==1.4.0 trimesh scikit-image pyopengl geojson lyft-dataset-sdk numba==0.48.0 glumpy PyOpenGL_accelerate imgaug setuptools==59.5.0 wheel setuptools pymap3d rtree numpy-quaternion tensorboardx nuscenes-devkit openmim mmdet==2.14.0 mmsegmentation==0.14.1 torch-scatter efficientnet_pytorch
+
+COPY mmdetection3d .
+RUN python setup.py develop
 
 RUN bash install.sh
-
-RUN pip install --no-cache-dir --upgrade pip pycuda mmcv-full==1.5.0 trimesh pyopengl geojson lyft-dataset-sdk numba glumpy PyOpenGL_accelerate imgaug setuptools==59.5.0 wheel setuptools pymap3d rtree numpy-quaternion tensorboardx nuscenes-devkit openmim mmdet mmsegmentation torch-scatter efficientnet_pytorch
 
 RUN pip install onnxruntime_gpu-1.13.1-cp37-cp37m-linux_x86_64.whl
 
