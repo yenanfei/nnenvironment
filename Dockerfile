@@ -1,9 +1,6 @@
 ARG PYTORCH="1.9.1"
 ARG CUDA="11.1"
 ARG CUDNN="8"
-#ARG MMDET="2.24.0"
-#ARG MMSEG="0.20.0"
-#ARG MMCV="1.7.0"
 
 FROM pytorch/pytorch:${PYTORCH}-cuda${CUDA}-cudnn${CUDNN}-devel
 
@@ -26,14 +23,13 @@ RUN apt-get update && apt-get install -y ffmpeg curl vim libglfw3 tmux libsm6 li
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN curl https://get.docker.com | sh
 RUN pip config set global.index-url https://mirror.baidu.com/pypi/simple
 
 COPY libstdc++.so.6.0.28  /lib/x86_64-linux-gnu/libstdc++.so.6.0.28
 COPY onnxruntime_gpu-1.13.1-cp37-cp37m-linux_x86_64.whl .
 COPY install.sh .
 COPY libm-2.31.so /lib/x86_64-linux-gnu/libm.so.6
-RUN pip install --no-cache-dir --upgrade pip pycuda scipy mmcv-full==1.4.0 trimesh scikit-image pyopengl geojson lyft-dataset-sdk numba==0.48.0 glumpy PyOpenGL_accelerate imgaug setuptools==59.5.0 wheel setuptools pymap3d rtree numpy-quaternion tensorboardx nuscenes-devkit openmim mmdet==2.14.0 mmsegmentation==0.14.1 torch-scatter efficientnet_pytorch
+RUN pip install --no-cache-dir --upgrade pip pycuda scipy timm mmcv-full==1.4.0 trimesh protobuf==3.20.* ConfigArgParse scikit-image pyopengl geojson lyft-dataset-sdk numba==0.48.0 glumpy PyOpenGL_accelerate imgaug setuptools==59.5.0 wheel setuptools pymap3d rtree numpy-quaternion tensorboardx nuscenes-devkit openmim mmdet==2.14.0 mmsegmentation==0.14.1 torch-scatter efficientnet_pytorch
 
 COPY mmdetection3d .
 RUN python setup.py develop
